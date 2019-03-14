@@ -2,6 +2,8 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -87,6 +89,22 @@ class User implements UserInterface
      * @ORM\JoinColumn(name="preference_id", referencedColumnName="id")
      */
     protected $preference;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Organization", inversedBy="users", cascade={"persist"})
+     * @ORM\JoinColumn(name="organization_id", referencedColumnName="id", onDelete="CASCADE", nullable=true)
+     */
+    protected $organization;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="App\Entity\CourseInstance", mappedBy="users")
+     */
+    private $courses;
+
+    public function __construct()
+    {
+        $this->courses = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -232,5 +250,33 @@ class User implements UserInterface
     public function eraseCredentials(): void
     {
         // If you store any temporary, sensitive data on the user, clear it here
+    }
+
+    /**
+     * @return Collection|CourseInstance[]
+     */
+    public function getCourses(): Collection
+    {
+        return $this->courses;
+    }
+
+    public function addCourse(CourseInstance $course): self
+    {
+        if (!$this->courses->contains($course)) {
+            $this->courses[] = $course;
+            $course->addUser($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCourse(CourseInstance $course): self
+    {
+        if ($this->courses->contains($course)) {
+            $this->courses->removeElement($course);
+            $course->removeUser($this);
+        }
+
+        return $this;
     }
 }
