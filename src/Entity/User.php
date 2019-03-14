@@ -91,7 +91,7 @@ class User implements UserInterface
     protected $preference;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\Organization", inversedBy="users", cascade={"persist"})
+     * @ORM\ManyToOne(targetEntity="App\Entity\Organization", inversedBy="users")
      * @ORM\JoinColumn(name="organization_id", referencedColumnName="id", onDelete="CASCADE", nullable=true)
      */
     protected $organization;

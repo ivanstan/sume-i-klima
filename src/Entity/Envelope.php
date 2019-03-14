@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity()
  * @ORM\Table(name="course_node_envelope")
  */
-class Envelope
+class Envelope extends AbstractCourseNode
 {
     public const TYPE = 'envelope';
 
@@ -24,11 +24,6 @@ class Envelope
      * @ORM\Column(type="string", length=255)
      */
     private $name;
-
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
 
     public function getName(): ?string
     {
