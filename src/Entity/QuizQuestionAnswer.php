@@ -26,6 +26,11 @@ class QuizQuestionAnswer
      */
     private $question;
 
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\QuizAnwser", inversedBy="answers")
+     */
+    private $answer;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -51,6 +56,18 @@ class QuizQuestionAnswer
     public function setQuestion(?QuizQuestion $question): self
     {
         $this->question = $question;
+
+        return $this;
+    }
+
+    public function getAnswer(): ?QuizAnwser
+    {
+        return $this->answer;
+    }
+
+    public function setAnswer(?QuizAnwser $answer): self
+    {
+        $this->answer = $answer;
 
         return $this;
     }

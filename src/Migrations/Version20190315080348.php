@@ -10,7 +10,7 @@ use Doctrine\Migrations\AbstractMigration;
 /**
  * Auto-generated Migration: Please modify to your needs!
  */
-final class Version20190314144655 extends AbstractMigration
+final class Version20190315080348 extends AbstractMigration
 {
     public function getDescription() : string
     {
@@ -22,6 +22,7 @@ final class Version20190314144655 extends AbstractMigration
         // this up() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
+        $this->addSql('CREATE TABLE quiz_anwser (id INT AUTO_INCREMENT NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE = InnoDB');
         $this->addSql('CREATE TABLE user_course_node_instance (id INT AUTO_INCREMENT NOT NULL, user_id INT NOT NULL, course_node_instance_id INT NOT NULL, type VARCHAR(255) NOT NULL, INDEX IDX_81313E2DA76ED395 (user_id), UNIQUE INDEX UNIQ_81313E2DFF1EA214 (course_node_instance_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE = InnoDB');
         $this->addSql('CREATE TABLE course_instance (id INT AUTO_INCREMENT NOT NULL, course_id INT NOT NULL, date DATETIME NOT NULL, INDEX IDX_EB84DC88591CC992 (course_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE = InnoDB');
         $this->addSql('CREATE TABLE course_instance_user (course_instance_id INT NOT NULL, user_id INT NOT NULL, INDEX IDX_6614C25B4E3F42C9 (course_instance_id), INDEX IDX_6614C25BA76ED395 (user_id), PRIMARY KEY(course_instance_id, user_id)) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE = InnoDB');
@@ -32,9 +33,11 @@ final class Version20190314144655 extends AbstractMigration
         $this->addSql('CREATE TABLE course_node_lesson (id INT NOT NULL, name VARCHAR(255) NOT NULL, url VARCHAR(255) DEFAULT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE = InnoDB');
         $this->addSql('CREATE TABLE course_node_envelope (id INT NOT NULL, name VARCHAR(255) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE = InnoDB');
         $this->addSql('CREATE TABLE user_course_node_assignment (id INT NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE quiz_question_answer (id INT AUTO_INCREMENT NOT NULL, question_id INT DEFAULT NULL, answer_id INT DEFAULT NULL, correct TINYINT(1) NOT NULL, INDEX IDX_E684DF7C1E27F6BF (question_id), INDEX IDX_E684DF7CAA334807 (answer_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE = InnoDB');
         $this->addSql('CREATE TABLE course (id INT AUTO_INCREMENT NOT NULL, name VARCHAR(255) NOT NULL, language VARCHAR(2) NOT NULL, active TINYINT(1) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE = InnoDB');
         $this->addSql('CREATE TABLE user_course_node_quiz (id INT NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE = InnoDB');
         $this->addSql('CREATE TABLE course_node_quiz (id INT NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE = InnoDB');
+        $this->addSql('CREATE TABLE quiz_question (id INT AUTO_INCREMENT NOT NULL, quiz_id INT NOT NULL, type VARCHAR(255) NOT NULL, INDEX IDX_6033B00B853CD175 (quiz_id), PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE = InnoDB');
         $this->addSql('CREATE TABLE user_course_node_lesson (id INT NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE = InnoDB');
         $this->addSql('CREATE TABLE user_course_node_envelope (id INT NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE = InnoDB');
         $this->addSql('CREATE TABLE organization (id INT AUTO_INCREMENT NOT NULL, name VARCHAR(255) NOT NULL, PRIMARY KEY(id)) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci ENGINE = InnoDB');
@@ -53,8 +56,11 @@ final class Version20190314144655 extends AbstractMigration
         $this->addSql('ALTER TABLE course_node_lesson ADD CONSTRAINT FK_38085182BF396750 FOREIGN KEY (id) REFERENCES course_node (id) ON DELETE CASCADE');
         $this->addSql('ALTER TABLE course_node_envelope ADD CONSTRAINT FK_F7B524E4BF396750 FOREIGN KEY (id) REFERENCES course_node (id) ON DELETE CASCADE');
         $this->addSql('ALTER TABLE user_course_node_assignment ADD CONSTRAINT FK_7253AB74BF396750 FOREIGN KEY (id) REFERENCES user_course_node_instance (id) ON DELETE CASCADE');
+        $this->addSql('ALTER TABLE quiz_question_answer ADD CONSTRAINT FK_E684DF7C1E27F6BF FOREIGN KEY (question_id) REFERENCES quiz_question (id)');
+        $this->addSql('ALTER TABLE quiz_question_answer ADD CONSTRAINT FK_E684DF7CAA334807 FOREIGN KEY (answer_id) REFERENCES quiz_anwser (id)');
         $this->addSql('ALTER TABLE user_course_node_quiz ADD CONSTRAINT FK_9C027575BF396750 FOREIGN KEY (id) REFERENCES user_course_node_instance (id) ON DELETE CASCADE');
         $this->addSql('ALTER TABLE course_node_quiz ADD CONSTRAINT FK_E11737A8BF396750 FOREIGN KEY (id) REFERENCES course_node (id) ON DELETE CASCADE');
+        $this->addSql('ALTER TABLE quiz_question ADD CONSTRAINT FK_6033B00B853CD175 FOREIGN KEY (quiz_id) REFERENCES course_node_quiz (id)');
         $this->addSql('ALTER TABLE user_course_node_lesson ADD CONSTRAINT FK_944CB779BF396750 FOREIGN KEY (id) REFERENCES user_course_node_instance (id) ON DELETE CASCADE');
         $this->addSql('ALTER TABLE user_course_node_envelope ADD CONSTRAINT FK_4994F79BBF396750 FOREIGN KEY (id) REFERENCES user_course_node_instance (id) ON DELETE CASCADE');
         $this->addSql('ALTER TABLE user ADD organization_id INT DEFAULT NULL');
@@ -67,6 +73,7 @@ final class Version20190314144655 extends AbstractMigration
         // this down() migration is auto-generated, please modify it to your needs
         $this->abortIf($this->connection->getDatabasePlatform()->getName() !== 'mysql', 'Migration can only be executed safely on \'mysql\'.');
 
+        $this->addSql('ALTER TABLE quiz_question_answer DROP FOREIGN KEY FK_E684DF7CAA334807');
         $this->addSql('ALTER TABLE user_course_node_assignment DROP FOREIGN KEY FK_7253AB74BF396750');
         $this->addSql('ALTER TABLE user_course_node_quiz DROP FOREIGN KEY FK_9C027575BF396750');
         $this->addSql('ALTER TABLE user_course_node_lesson DROP FOREIGN KEY FK_944CB779BF396750');
@@ -83,7 +90,10 @@ final class Version20190314144655 extends AbstractMigration
         $this->addSql('ALTER TABLE course_node_assigment DROP FOREIGN KEY FK_9992120D93CB796C');
         $this->addSql('ALTER TABLE course_instance DROP FOREIGN KEY FK_EB84DC88591CC992');
         $this->addSql('ALTER TABLE course_node DROP FOREIGN KEY FK_4DDD3543591CC992');
+        $this->addSql('ALTER TABLE quiz_question DROP FOREIGN KEY FK_6033B00B853CD175');
+        $this->addSql('ALTER TABLE quiz_question_answer DROP FOREIGN KEY FK_E684DF7C1E27F6BF');
         $this->addSql('ALTER TABLE user DROP FOREIGN KEY FK_8D93D64932C8A3DE');
+        $this->addSql('DROP TABLE quiz_anwser');
         $this->addSql('DROP TABLE user_course_node_instance');
         $this->addSql('DROP TABLE course_instance');
         $this->addSql('DROP TABLE course_instance_user');
@@ -94,9 +104,11 @@ final class Version20190314144655 extends AbstractMigration
         $this->addSql('DROP TABLE course_node_lesson');
         $this->addSql('DROP TABLE course_node_envelope');
         $this->addSql('DROP TABLE user_course_node_assignment');
+        $this->addSql('DROP TABLE quiz_question_answer');
         $this->addSql('DROP TABLE course');
         $this->addSql('DROP TABLE user_course_node_quiz');
         $this->addSql('DROP TABLE course_node_quiz');
+        $this->addSql('DROP TABLE quiz_question');
         $this->addSql('DROP TABLE user_course_node_lesson');
         $this->addSql('DROP TABLE user_course_node_envelope');
         $this->addSql('DROP TABLE organization');

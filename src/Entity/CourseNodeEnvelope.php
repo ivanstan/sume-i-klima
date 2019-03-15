@@ -26,17 +26,6 @@ class CourseNodeEnvelope extends AbstractCourseNode
      */
     private $name;
 
-    /**
-     * @var AbstractCourseNode[]
-     * @ORM\OneToMany(targetEntity="App\Entity\AbstractCourseNode", mappedBy="parent")
-     */
-    private $children;
-
-    public function __construct()
-    {
-        $this->children = new ArrayCollection();
-    }
-
     public function getName(): ?string
     {
         return $this->name;
@@ -45,41 +34,5 @@ class CourseNodeEnvelope extends AbstractCourseNode
     public function setName(string $name): void
     {
         $this->name = $name;
-    }
-
-    /**
-     * @return AbstractCourseNode[]
-     */
-    public function getChildren(): array
-    {
-        return $this->children;
-    }
-
-    /**
-     * @param AbstractCourseNode[]
-     */
-    public function setChildren(array $children): void
-    {
-        $this->children = $children;
-    }
-
-
-    public function addChild(AbstractCourseNode $node): void
-    {
-        if (!$this->children->contains($node)) {
-            $this->children[] = $node;
-            $node->setParent($this);
-        }
-    }
-
-    public function removeChild(AbstractCourseNode $node): void
-    {
-        if ($this->children->contains($node)) {
-            $this->children->removeElement($node);
-            // set the owning side to null (unless already changed)
-            if ($node->getParent() === $this) {
-                $node->setParent(null);
-            }
-        }
     }
 }
