@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity()
@@ -22,6 +23,7 @@ class CourseNodeEnvelope extends AbstractCourseNode
     /**
      * @var string
      * @ORM\Column(type="string", length=255)
+     * @Groups({"api_course_instance"})
      */
     private $name;
 

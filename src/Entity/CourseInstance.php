@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\CourseInstanceRepository")
@@ -15,12 +16,14 @@ class CourseInstance
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups({"api_course_instance"})
      */
     private $id;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Course", inversedBy="instances")
      * @ORM\JoinColumn(nullable=false)
+     * @Groups({"api_course_instance"})
      */
     private $course;
 
@@ -31,6 +34,7 @@ class CourseInstance
 
     /**
      * @ORM\Column(type="datetimetz")
+     * @Groups({"api_course_instance"})
      */
     private $date;
 

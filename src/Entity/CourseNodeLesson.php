@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity()
@@ -16,16 +17,19 @@ class CourseNodeLesson extends AbstractCourseNode
      * @ORM\Id()
      * @ORM\OneToOne(targetEntity="AbstractCourseNode", cascade={"persist", "remove"})
      * @ORM\JoinColumn(name="id", nullable=false)
+     * @Groups({"api_course_instance"})
      */
     private $id;
 
     /**
      * @ORM\Column(type="string", length=255)
+     * @Groups({"api_course_instance"})
      */
     private $name;
 
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
+     * @Groups({"api_course_instance"})
      */
     private $url;
 

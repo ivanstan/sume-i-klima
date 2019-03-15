@@ -35,3 +35,10 @@ services:
 
     App\EventSubscriber\DevSubscriber:
         arguments: ["%kernel.environment%"]
+
+    App\Service\FileManager:
+        arguments: [ '%kernel.project_dir%']
+
+    App\EventSubscriber\FileDoctrineSubscriber:
+        tags:
+            - { name: doctrine.event_subscriber }

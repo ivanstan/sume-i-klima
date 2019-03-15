@@ -4,9 +4,11 @@ namespace App\Entity;
 
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\PersistentCollection;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="App\Repository\CourseNodeRepository")
  * @ORM\Table("course_node")
  * @ORM\InheritanceType("JOINED")
  * @ORM\DiscriminatorColumn(name="type", type="string")
@@ -24,6 +26,7 @@ abstract class AbstractCourseNode
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups({"api_course_instance"})
      */
     private $id;
 
@@ -35,26 +38,30 @@ abstract class AbstractCourseNode
     private $course;
 
     /**
-     * @var AbstractCourseNode
-     * @ORM\ManyToOne(targetEntity="App\Entity\AbstractCourseNode", inversedBy="children")
-     * @ORM\JoinColumn(name="parent_id", referencedColumnName="id")
-     */
-    private $parent;
-
-    /**
      * @var int
      * @ORM\Column(type="integer", nullable=true)
+     * @Groups({"api_course_instance"})
      */
     private $weight;
 
     /**
      * @ORM\Column(type="dateinterval", nullable=true)
+     * @Groups({"api_course_instance"})
      */
     private $availableAfter;
 
     /**
+     * @var AbstractCourseNode
+     * @ORM\ManyToOne(targetEntity="App\Entity\AbstractCourseNode", inversedBy="children")
+     * @ORM\JoinColumn(name="parent_id", referencedColumnName="id", onDelete="CASCADE")
+     */
+    private $parent;
+
+    /**
      * @var AbstractCourseNode[]
-     * @ORM\OneToMany(targetEntity="App\Entity\AbstractCourseNode", mappedBy="parent")
+     * @ORM\OneToMany(targetEntity="App\Entity\AbstractCourseNode", mappedBy="parent", fetch="EAGER")
+     * @ORM\OrderBy({"weight": "ASC"});
+     * @Groups({"api_course_instance"})
      */
     private $children;
 
@@ -76,23 +83,6 @@ abstract class AbstractCourseNode
     public function setCourse(Course $course): void
     {
         $this->course = $course;
-    }
-
-    public function getParent(): AbstractCourseNode
-    {
-        return $this->parent;
-    }
-
-    /**
-     * @throws \Exception
-     */
-    public function setParent(AbstractCourseNode $parent): void
-    {
-        if (!$parent instanceof CourseNodeEnvelope) {
-            throw new \InvalidArgumentException(\sprintf('Attempt to set %s as a parent of %s. Only CourseNodeEnvelope can be set as parent.', get_class($parent), get_class($this)));
-        }
-
-        $this->parent = $parent;
     }
 
     public function getWeight(): ?int
@@ -117,10 +107,28 @@ abstract class AbstractCourseNode
         return $this;
     }
 
+    public function getParent(): AbstractCourseNode
+    {
+        return $this->parent;
+    }
+
     /**
-     * @return AbstractCourseNode[]
+     * @throws \Exception
      */
-    public function getChildren(): array
+    public function setParent(AbstractCourseNode $parent): void
+    {
+        if (!$parent instanceof CourseNodeEnvelope) {
+            throw new \InvalidArgumentException(\sprintf('Attempt to set %s as a parent of %s. Only CourseNodeEnvelope can be set as parent.',
+                get_class($parent), get_class($this)));
+        }
+
+        $this->parent = $parent;
+    }
+
+    /**
+     * @return AbstractCourseNode[]|PersistentCollection
+     */
+    public function getChildren()
     {
         return $this->children;
     }
