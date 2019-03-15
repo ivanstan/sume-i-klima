@@ -279,4 +279,14 @@ class User implements UserInterface
 
         return $this;
     }
+
+    public function getOrganization()
+    {
+        return $this->organization;
+    }
+
+    public function setOrganization($organization): void
+    {
+        $this->organization = $organization;
+    }
 }

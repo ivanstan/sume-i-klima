@@ -3,13 +3,19 @@
 namespace App\DataFixtures;
 
 use App\Entity\Course;
+use App\Entity\CourseNodeAssignment;
 use App\Entity\CourseNodeEnvelope;
 use App\Entity\CourseNodeLesson;
 use App\Entity\CourseNodeQuiz;
+use App\Entity\File;
+use App\Entity\QuizAnswer;
+use App\Entity\QuizQuestion;
+use App\Entity\QuizQuestionAnswer;
 use Doctrine\Bundle\FixturesBundle\Fixture;
+use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
 
-class CourseFixtures extends Fixture
+class CourseFixtures extends Fixture implements DependentFixtureInterface
 {
     public function load(ObjectManager $manager): void
     {
@@ -37,13 +43,39 @@ class CourseFixtures extends Fixture
                 $quiz->setWeight(0);
                 $quiz->setParent($envelope);
                 $quiz->setCourse($course);
+
+                for ($questionId = 0; $questionId < 10; $questionId++) {
+                    $question = new QuizQuestion();
+                    $question->setQuiz($quiz);
+                    $question->setType(QuizQuestion::TYPES[array_rand(QuizQuestion::TYPES)]);
+                    $manager->persist($question);
+
+                    for ($answerId = 0; $answerId < 4; $answerId++) {
+                        $answer = new QuizAnswer();
+                        $manager->persist($answer);
+
+                        $questionAnswer = new QuizQuestionAnswer();
+                        $questionAnswer->setAnswer($answer);
+                        $questionAnswer->setQuestion($question);
+                        $questionAnswer->setCorrect((bool)random_int(0,1));
+
+                        $manager->persist($questionAnswer);
+
+                        $question->addAnswer($questionAnswer);
+                    }
+
+                    $quiz->addQuestion($question);
+                }
+
                 $manager->persist($quiz);
 
-//                $assigment = new CourseNodeAssignment();
-//                $assigment->setWeight(0);
-//                $assigment->setParent($envelope);
-//                $assigment->setCourse($course);
-//                $manager->persist($assigment);
+                $assigment = new CourseNodeAssignment();
+                $assigment->setWeight(0);
+                $assigment->setParent($envelope);
+                $assigment->setCourse($course);
+                $files = $manager->getRepository(File::class)->findAll();
+                $assigment->setFile($files[array_rand($files)]);
+                $manager->persist($assigment);
             }
 
             $manager->persist($course);
@@ -56,6 +88,7 @@ class CourseFixtures extends Fixture
     {
         return [
             UserFixtures::class,
+            FileFixtures::class,
         ];
     }
 }

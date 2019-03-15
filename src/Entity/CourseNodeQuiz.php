@@ -28,6 +28,8 @@ class CourseNodeQuiz extends AbstractCourseNode
 
     public function __construct()
     {
+        parent::__construct();
+
         $this->questions = new ArrayCollection();
     }
 

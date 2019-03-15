@@ -11,6 +11,14 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class QuizQuestion
 {
+    public const TYPE_CHECKBOX = 'checkbox';
+    public const TYPE_RADIO = 'radio';
+
+    public const TYPES = [
+        self::TYPE_CHECKBOX,
+        self::TYPE_RADIO
+    ];
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
