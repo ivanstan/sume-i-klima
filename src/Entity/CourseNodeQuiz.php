@@ -7,7 +7,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\QuizRepository")
+ * @ORM\Entity()
  * @ORM\Table(name="course_node_quiz")
  */
 class CourseNodeQuiz extends AbstractCourseNode

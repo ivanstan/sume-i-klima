@@ -5,7 +5,7 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\QuizResultRepository")
+ * @ORM\Entity()
  */
 class QuizResult
 {
@@ -23,7 +23,7 @@ class QuizResult
     private $question;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\QuizAnwser")
+     * @ORM\ManyToOne(targetEntity="App\Entity\QuizAnswer")
      */
     private $answer;
 
@@ -44,12 +44,12 @@ class QuizResult
         return $this;
     }
 
-    public function getAnswer(): ?QuizAnwser
+    public function getAnswer(): ?QuizAnswer
     {
         return $this->answer;
     }
 
-    public function setAnswer(?QuizAnwser $answer): self
+    public function setAnswer(?QuizAnswer $answer): self
     {
         $this->answer = $answer;
 

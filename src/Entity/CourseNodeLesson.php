@@ -5,7 +5,7 @@ namespace App\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\LessonRepository")
+ * @ORM\Entity()
  * @ORM\Table(name="course_node_lesson")
  */
 class CourseNodeLesson extends AbstractCourseNode

@@ -2,7 +2,6 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\CourseNodeAssignment;
 use App\Entity\Course;
 use App\Entity\CourseNodeEnvelope;
 use App\Entity\CourseNodeLesson;
