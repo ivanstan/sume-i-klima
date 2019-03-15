@@ -15,9 +15,4 @@ class UserCourseNodeAssignment extends AbstractUserCourseNodeInstance
      * @ORM\JoinColumn(name="id", nullable=false)
      */
     private $id;
-
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
 }

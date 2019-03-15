@@ -16,8 +16,4 @@ class UserCourseNodeQuiz extends AbstractUserCourseNodeInstance
      */
     private $id;
 
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
 }
