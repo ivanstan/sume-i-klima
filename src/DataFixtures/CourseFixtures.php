@@ -2,11 +2,11 @@
 
 namespace App\DataFixtures;
 
-use App\Entity\Assignment;
+use App\Entity\CourseNodeAssignment;
 use App\Entity\Course;
-use App\Entity\Envelope;
-use App\Entity\Lesson;
-use App\Entity\Quiz;
+use App\Entity\CourseNodeEnvelope;
+use App\Entity\CourseNodeLesson;
+use App\Entity\CourseNodeQuiz;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\Persistence\ObjectManager;
 
@@ -21,30 +21,30 @@ class CourseFixtures extends Fixture
             $course->setActive(true);
 
             for($j = 0; $j < 2; $j++) {
-                $envelope = new Envelope();
+                $envelope = new CourseNodeEnvelope();
                 $envelope->setName('Week ' . $j);
                 $envelope->setWeight(0);
                 $envelope->setCourse($course);
                 $manager->persist($envelope);
 
-                $lesson = new Lesson();
-                $lesson->setName('Lesson ' . $j);
+                $lesson = new CourseNodeLesson();
+                $lesson->setName('CourseNodeLesson ' . $j);
                 $lesson->setWeight(0);
                 $lesson->setParent($envelope);
                 $lesson->setCourse($course);
                 $manager->persist($lesson);
 
-                $quiz = new Quiz();
+                $quiz = new CourseNodeQuiz();
                 $quiz->setWeight(0);
                 $quiz->setParent($envelope);
                 $quiz->setCourse($course);
                 $manager->persist($quiz);
 
-                $assigment = new Assignment();
-                $assigment->setWeight(0);
-                $assigment->setParent($envelope);
-                $assigment->setCourse($course);
-                $manager->persist($assigment);
+//                $assigment = new CourseNodeAssignment();
+//                $assigment->setWeight(0);
+//                $assigment->setParent($envelope);
+//                $assigment->setCourse($course);
+//                $manager->persist($assigment);
             }
 
             $manager->persist($course);

@@ -2,25 +2,25 @@
 
 namespace App\Repository;
 
-use App\Entity\CourseNodeQuiz;
+use App\Entity\QuizAnwser;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
- * @method CourseNodeQuiz|null find($id, $lockMode = null, $lockVersion = null)
- * @method CourseNodeQuiz|null findOneBy(array $criteria, array $orderBy = null)
- * @method CourseNodeQuiz[]    findAll()
- * @method CourseNodeQuiz[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method QuizAnwser|null find($id, $lockMode = null, $lockVersion = null)
+ * @method QuizAnwser|null findOneBy(array $criteria, array $orderBy = null)
+ * @method QuizAnwser[]    findAll()
+ * @method QuizAnwser[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class QuizRepository extends ServiceEntityRepository
+class QuizAnwserRepository extends ServiceEntityRepository
 {
     public function __construct(RegistryInterface $registry)
     {
-        parent::__construct($registry, CourseNodeQuiz::class);
+        parent::__construct($registry, QuizAnwser::class);
     }
 
     // /**
-    //  * @return CourseNodeQuiz[] Returns an array of CourseNodeQuiz objects
+    //  * @return QuizAnwser[] Returns an array of QuizAnwser objects
     //  */
     /*
     public function findByExampleField($value)
@@ -37,7 +37,7 @@ class QuizRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?CourseNodeQuiz
+    public function findOneBySomeField($value): ?QuizAnwser
     {
         return $this->createQueryBuilder('q')
             ->andWhere('q.exampleField = :val')

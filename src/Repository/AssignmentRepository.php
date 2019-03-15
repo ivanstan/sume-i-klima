@@ -2,25 +2,25 @@
 
 namespace App\Repository;
 
-use App\Entity\Assignment;
+use App\Entity\CourseNodeAssignment;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 /**
- * @method Assignment|null find($id, $lockMode = null, $lockVersion = null)
- * @method Assignment|null findOneBy(array $criteria, array $orderBy = null)
- * @method Assignment[]    findAll()
- * @method Assignment[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
+ * @method CourseNodeAssignment|null find($id, $lockMode = null, $lockVersion = null)
+ * @method CourseNodeAssignment|null findOneBy(array $criteria, array $orderBy = null)
+ * @method CourseNodeAssignment[]    findAll()
+ * @method CourseNodeAssignment[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
 class AssignmentRepository extends ServiceEntityRepository
 {
     public function __construct(RegistryInterface $registry)
     {
-        parent::__construct($registry, Assignment::class);
+        parent::__construct($registry, CourseNodeAssignment::class);
     }
 
     // /**
-    //  * @return Assignment[] Returns an array of Assignment objects
+    //  * @return CourseNodeAssignment[] Returns an array of CourseNodeAssignment objects
     //  */
     /*
     public function findByExampleField($value)
@@ -37,7 +37,7 @@ class AssignmentRepository extends ServiceEntityRepository
     */
 
     /*
-    public function findOneBySomeField($value): ?Assignment
+    public function findOneBySomeField($value): ?CourseNodeAssignment
     {
         return $this->createQueryBuilder('a')
             ->andWhere('a.exampleField = :val')

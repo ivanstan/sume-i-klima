@@ -29,6 +29,11 @@ class CourseInstance
      */
     private $users;
 
+    /**
+     * @ORM\Column(type="datetimetz")
+     */
+    private $date;
+
     public function __construct()
     {
         $this->users = new ArrayCollection();
@@ -73,6 +78,18 @@ class CourseInstance
         if ($this->users->contains($user)) {
             $this->users->removeElement($user);
         }
+
+        return $this;
+    }
+
+    public function getDate(): ?\DateTimeInterface
+    {
+        return $this->date;
+    }
+
+    public function setDate(\DateTimeInterface $date): self
+    {
+        $this->date = $date;
 
         return $this;
     }

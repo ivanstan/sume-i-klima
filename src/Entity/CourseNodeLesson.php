@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity(repositoryClass="App\Repository\LessonRepository")
  * @ORM\Table(name="course_node_lesson")
  */
-class Lesson extends AbstractCourseNode
+class CourseNodeLesson extends AbstractCourseNode
 {
     public const TYPE = 'lesson';
 
@@ -24,6 +24,11 @@ class Lesson extends AbstractCourseNode
      */
     private $name;
 
+    /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $url;
+
     public function getName(): ?string
     {
         return $this->name;
@@ -32,6 +37,18 @@ class Lesson extends AbstractCourseNode
     public function setName(string $name): self
     {
         $this->name = $name;
+
+        return $this;
+    }
+
+    public function getUrl(): ?string
+    {
+        return $this->url;
+    }
+
+    public function setUrl(?string $url): self
+    {
+        $this->url = $url;
 
         return $this;
     }
