@@ -33,19 +33,19 @@ class DoctrineReloadCommand extends Command
             $application = $this->getApplication();
             $application->setAutoExit(false);
 
-            $io->writeln('Drop Database');
+            $io->writeln('Drop database');
             $options = ['command' => 'doctrine:database:drop', '--force' => true];
             $application->run(new \Symfony\Component\Console\Input\ArrayInput($options));
 
-            $io->writeln('Create Database');
+            $io->writeln('Create database');
             $options = ['command' => 'doctrine:database:create', '--if-not-exists' => true];
             $application->run(new \Symfony\Component\Console\Input\ArrayInput($options));
 
-            $io->writeln('Executing Migrations');
+            $io->writeln('Executing migrations');
             $options = ['command' => 'doctrine:migration:migrate', '--no-interaction' => true];
             $application->run(new \Symfony\Component\Console\Input\ArrayInput($options));
 
-            $io->writeln('Load Fixtures');
+            $io->writeln('Load fixtures');
             $options = ['command' => 'doctrine:fixtures:load', '--no-interaction' => true];
             $application->run(new \Symfony\Component\Console\Input\ArrayInput($options));
         }
