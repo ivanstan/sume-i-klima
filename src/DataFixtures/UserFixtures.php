@@ -42,8 +42,8 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
             $user = new User();
             $user->setEmail("user{$i}@example.com");
             $user->setRoles([User::ROLE_USER]);
-            $user->setActive((bool)random_int(0,1));
-            $user->setVerified((bool)random_int(0,1));
+            $user->setActive($i > 6);
+            $user->setVerified($i < 4 || $i > 8);
             $user->setPassword($passwordHash);
             $user->setOrganization($this->getReference(OrganizationFixtures::ORGANIZATION));
 

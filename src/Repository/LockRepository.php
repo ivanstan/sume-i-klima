@@ -4,6 +4,7 @@ namespace App\Repository;
 
 use App\Entity\Lock;
 use App\EventSubscriber\SecuritySubscriber;
+use App\Service\DateTimeService;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
@@ -20,7 +21,7 @@ class LockRepository extends ServiceEntityRepository
      */
     public function getActiveLocks(): array
     {
-        $now = new \DateTime('now', new \DateTimeZone('UTC'));
+        $now = new \DateTime('now', new \DateTimeZone(DateTimeService::UTC_TIMEZONE));
 
         $builder = $this
             ->createQueryBuilder('l')
@@ -35,7 +36,7 @@ class LockRepository extends ServiceEntityRepository
 
     public function getExpiredLocks(): array
     {
-        $now = new \DateTime('now', new \DateTimeZone('UTC'));
+        $now = new \DateTime('now', new \DateTimeZone(DateTimeService::UTC_TIMEZONE));
 
         $builder = $this
             ->createQueryBuilder('l')
@@ -49,7 +50,7 @@ class LockRepository extends ServiceEntityRepository
 
     public function getLock(string $name, $data = null): ?Lock
     {
-        $now = new \DateTime('now', new \DateTimeZone('UTC'));
+        $now = new \DateTime('now', new \DateTimeZone(DateTimeService::UTC_TIMEZONE));
 
         $builder = $this
             ->createQueryBuilder('l')

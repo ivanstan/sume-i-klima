@@ -6,6 +6,7 @@ use App\Entity\Course;
 use App\Entity\CourseInstance;
 use App\Entity\CourseNodeInstance;
 use App\Entity\User;
+use App\Service\DateTimeService;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;
@@ -23,7 +24,7 @@ class CourseInstanceFixtures extends Fixture implements DependentFixtureInterfac
             $instance = new CourseInstance();
             $instance->setCourse($course);
             $instance->setDate(new \DateTime('now'));
-            $instance->setTimezone(new \DateTimeZone('UTC'));
+            $instance->setTimezone(new \DateTimeZone(DateTimeService::UTC_TIMEZONE));
             $instance->addUser($admin);
 
             $manager->persist($instance);

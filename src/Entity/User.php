@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Service\DateTimeService;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -162,8 +163,8 @@ class User implements UserInterface
      */
     public function setCreated(): void
     {
-        $this->created = new \DateTime('now', new \DateTimeZone('UTC'));
-        $this->updated = new \DateTime('now', new \DateTimeZone('UTC'));
+        $this->created = new \DateTime('now', new \DateTimeZone(DateTimeService::UTC_TIMEZONE));
+        $this->updated = new \DateTime('now', new \DateTimeZone(DateTimeService::UTC_TIMEZONE));
     }
 
     public function getUpdated(): ?\DateTime
@@ -176,7 +177,7 @@ class User implements UserInterface
      */
     public function setUpdated(): void
     {
-        $this->updated = new \DateTime('now', new \DateTimeZone('UTC'));
+        $this->updated = new \DateTime('now', new \DateTimeZone(DateTimeService::UTC_TIMEZONE));
     }
 
     public function getIp(): ?string

@@ -58,7 +58,7 @@ class UserWorksOnCourse extends Fixture implements DependentFixtureInterface
                     $userCourseNode->setUser($user);
                     $userCourseNode->setInstance($instance);
                     $userCourseNode->setNode($node);
-                    $userCourseNode->setDate(new \DateTime('now', new \DateTimeZone('UTC')));
+                    $userCourseNode->setDate(new \DateTime('now', new \DateTimeZone(DateTimeService::UTC_TIMEZONE)));
                     $manager->persist($userCourseNode);
                 }
             }

@@ -2,6 +2,7 @@
 
 namespace App\Entity;
 
+use App\Service\DateTimeService;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -96,6 +97,6 @@ class Token
      */
     private function getCurrentDateTime(): \DateTime
     {
-        return new \DateTime('now', new \DateTimeZone('UTC'));
+        return new \DateTime('now', new \DateTimeZone(DateTimeService::UTC_TIMEZONE));
     }
 }
