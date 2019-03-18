@@ -16,6 +16,14 @@ class DoctrineReloadCommand extends Command
         'No',
         'Yes',
     ];
+    private $env;
+
+    public function __construct($env)
+    {
+        parent::__construct();
+        $this->env = $env;
+    }
+
 
     protected function configure(): void
     {
@@ -28,6 +36,11 @@ class DoctrineReloadCommand extends Command
         $helper = $this->getHelper('question');
 
         $question = new ChoiceQuestion('All data will be lost. Do you wish to continue?', self::$choices, false);
+
+        if ('dev' !== $this->env) {
+            $io->warning('This is intended only for dev environment.');
+            return;
+        }
 
         if ($helper->ask($input, $output, $question) === self::$choices[1]) {
             $application = $this->getApplication();

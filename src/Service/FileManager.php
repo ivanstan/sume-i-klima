@@ -7,16 +7,16 @@ use App\Entity\File;
 class FileManager
 {
     /** @var string */
-    private $projectDir;
+    private $rootDir;
 
-    public function __construct(string $projectDir)
+    public function __construct(string $rootDir)
     {
-        $this->projectDir = $projectDir;
+        $this->rootDir = $rootDir;
     }
 
     public function getAbsolutePath(File $file): string
     {
-        return $this->projectDir . '/' . $file->getDestination();
+        return $this->rootDir . '/' . $file->getDestination();
     }
 
     public function save(string $destination, string $data)
