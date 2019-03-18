@@ -21,6 +21,8 @@ use Symfony\Component\Serializer\Annotation\Groups;
  */
 abstract class AbstractCourseNode
 {
+    protected const TYPE = 'node';
+
     /**
      * @var int
      * @ORM\Id()
@@ -36,6 +38,12 @@ abstract class AbstractCourseNode
      * @ORM\JoinColumn(name="course_id", nullable=false)
      */
     private $course;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     * @Groups({"api_course_instance"})
+     */
+    private $name;
 
     /**
      * @var int
@@ -60,7 +68,7 @@ abstract class AbstractCourseNode
     /**
      * @var AbstractCourseNode[]
      * @ORM\OneToMany(targetEntity="App\Entity\AbstractCourseNode", mappedBy="parent", fetch="EAGER")
-     * @ORM\OrderBy({"weight": "ASC"});
+     * @ORM\OrderBy({"weight": "DESC"});
      * @Groups({"api_course_instance"})
      */
     private $children;
@@ -85,6 +93,16 @@ abstract class AbstractCourseNode
         $this->course = $course;
     }
 
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    public function setName(string $name): void
+    {
+        $this->name = $name;
+    }
+
     public function getWeight(): ?int
     {
         return $this->weight;
@@ -107,7 +125,7 @@ abstract class AbstractCourseNode
         return $this;
     }
 
-    public function getParent(): AbstractCourseNode
+    public function getParent(): ?AbstractCourseNode
     {
         return $this->parent;
     }
@@ -126,10 +144,22 @@ abstract class AbstractCourseNode
     }
 
     /**
-     * @return AbstractCourseNode[]|PersistentCollection
+     * @Groups({"api_course_instance"})
+     */
+    public function getType(): string
+    {
+        return $this::TYPE;
+    }
+
+    /**
+     * @return AbstractCourseNode[]|PersistentCollection|null
      */
     public function getChildren()
     {
+        if ($this->children->isEmpty()) {
+            return null;
+        }
+
         return $this->children;
     }
 
@@ -140,7 +170,6 @@ abstract class AbstractCourseNode
     {
         $this->children = $children;
     }
-
 
     public function addChild(AbstractCourseNode $node): void
     {

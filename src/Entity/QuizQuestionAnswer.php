@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity()
@@ -13,6 +14,7 @@ class QuizQuestionAnswer
      * @ORM\Id()
      * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @Groups({"api_course_instance"})
      */
     private $id;
 
@@ -28,6 +30,7 @@ class QuizQuestionAnswer
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\QuizAnswer", inversedBy="answers")
+     * @Groups({"api_course_instance"})
      */
     private $answer;
 

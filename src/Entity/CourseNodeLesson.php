@@ -25,25 +25,7 @@ class CourseNodeLesson extends AbstractCourseNode
      * @ORM\Column(type="string", length=255)
      * @Groups({"api_course_instance"})
      */
-    private $name;
-
-    /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     * @Groups({"api_course_instance"})
-     */
     private $url;
-
-    public function getName(): ?string
-    {
-        return $this->name;
-    }
-
-    public function setName(string $name): self
-    {
-        $this->name = $name;
-
-        return $this;
-    }
 
     public function getUrl(): ?string
     {

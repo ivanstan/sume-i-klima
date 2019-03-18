@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity()
@@ -20,41 +21,26 @@ class CourseNodeAssignment extends AbstractCourseNode
     private $id;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
-     */
-    private $name;
-
-    /**
      * @ORM\Column(type="text", nullable=true)
+     * @Groups({"api_course_instance"})
      */
-    private $explanation;
+    private $content;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\File")
      * @ORM\JoinColumn(name="file_id", nullable=false)
+     * @Groups({"api_course_instance"})
      */
     private $file;
 
-    public function getName(): ?string
+    public function getContent(): ?string
     {
-        return $this->name;
+        return $this->content;
     }
 
-    public function setName(?string $name): self
+    public function setContent(?string $content): self
     {
-        $this->name = $name;
-
-        return $this;
-    }
-
-    public function getExplanation(): ?string
-    {
-        return $this->explanation;
-    }
-
-    public function setExplanation(?string $explanation): self
-    {
-        $this->explanation = $explanation;
+        $this->content = $content;
 
         return $this;
     }

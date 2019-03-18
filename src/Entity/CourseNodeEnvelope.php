@@ -19,21 +19,4 @@ class CourseNodeEnvelope extends AbstractCourseNode
      * @ORM\JoinColumn(name="id", nullable=false)
      */
     private $id;
-
-    /**
-     * @var string
-     * @ORM\Column(type="string", length=255)
-     * @Groups({"api_course_instance"})
-     */
-    private $name;
-
-    public function getName(): ?string
-    {
-        return $this->name;
-    }
-
-    public function setName(string $name): void
-    {
-        $this->name = $name;
-    }
 }

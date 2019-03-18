@@ -33,10 +33,18 @@ class CourseInstance
     private $users;
 
     /**
-     * @ORM\Column(type="datetimetz")
+     * @var \DateTime
+     * @ORM\Column(type="datetime")
      * @Groups({"api_course_instance"})
      */
     private $date;
+
+    /**
+     * @var \DateTimeZone
+     * @ORM\Column(type="string")
+     * @Groups({"api_course_instance"})
+     */
+    private $timezone;
 
     public function __construct()
     {
@@ -96,5 +104,15 @@ class CourseInstance
         $this->date = $date;
 
         return $this;
+    }
+
+    public function getTimezone(): \DateTimeZone
+    {
+        return new \DateTimeZone($this->timezone);
+    }
+
+    public function setTimezone(\DateTimeZone $timezone): void
+    {
+        $this->timezone = $timezone->getName();
     }
 }

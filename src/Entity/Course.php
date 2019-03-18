@@ -34,6 +34,7 @@ class Course
 
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\AbstractCourseNode", mappedBy="course")
+     * @ORM\OrderBy({"weight": "DESC"})
      * @Groups({"api_course_instance"})
      */
     private $nodes;

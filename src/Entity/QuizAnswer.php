@@ -5,6 +5,7 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity()
@@ -19,6 +20,14 @@ class QuizAnswer
     private $id;
 
     /**
+     * @var string
+     * @ORM\Column(type="text", nullable=true)
+     * @Groups({"api_course_instance"})
+     */
+    private $content;
+
+    /**
+     * @var QuizQuestionAnswer[]
      * @ORM\OneToMany(targetEntity="App\Entity\QuizQuestionAnswer", mappedBy="answer")
      */
     private $answers;
@@ -31,6 +40,16 @@ class QuizAnswer
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getContent(): string
+    {
+        return $this->content;
+    }
+
+    public function setContent(string $content): void
+    {
+        $this->content = $content;
     }
 
     /**

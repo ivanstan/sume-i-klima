@@ -19,6 +19,7 @@ class CourseInstanceFixtures extends Fixture implements DependentFixtureInterfac
             $instance = new CourseInstance();
             $instance->setCourse($course);
             $instance->setDate(new \DateTime('now'));
+            $instance->setTimezone(new \DateTimeZone('UTC'));
             $instance->addUser($this->getReference(UserFixtures::ADMIN_USER_REFERENCE));
 
             $manager->persist($instance);
