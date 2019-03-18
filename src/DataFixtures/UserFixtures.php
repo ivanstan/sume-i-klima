@@ -26,7 +26,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
     {
         // Add admin user
         $user = new User();
-        $user->setEmail('ivanstan@gmail.com');
+        $user->setEmail('admin@example.com');
         $user->setRoles([User::ROLE_ADMIN]);
         $user->setActive(true);
         $user->setVerified(true);
@@ -40,7 +40,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
 
         for ($i = 0; $i < 10; $i++) {
             $user = new User();
-            $user->setEmail("user{$i}@gmail.com");
+            $user->setEmail("user{$i}@example.com");
             $user->setRoles([User::ROLE_USER]);
             $user->setActive((bool)random_int(0,1));
             $user->setVerified((bool)random_int(0,1));
