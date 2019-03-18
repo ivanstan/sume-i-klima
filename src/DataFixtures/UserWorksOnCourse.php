@@ -6,6 +6,7 @@ use App\Entity\Course;
 use App\Entity\CourseNodeAssignment;
 use App\Entity\CourseNodeLesson;
 use App\Entity\CourseNodeQuiz;
+use App\Entity\QuizQuestionAnswer;
 use App\Entity\QuizQuestionResult;
 use App\Entity\User;
 use App\Entity\UserCourseNodeAssignment;
@@ -40,8 +41,12 @@ class UserWorksOnCourse extends Fixture implements DependentFixtureInterface
                     foreach ($node->getQuestions() as $question) {
                         $result = new QuizQuestionResult();
                         $result->setQuestion($question);
-                        $userAnswer = array_rand($question->getAnswers()->toArray())[0];
-                        $result->setAnswer($userAnswer);
+
+                        $answers = $question->getAnswers()->toArray();
+
+                        /** @var QuizQuestionAnswer $userAnswer */
+                        $quizQuestionAnswer = $answers[array_rand($answers)];
+                        $result->setAnswer($quizQuestionAnswer->getAnswer());
 
                         $userCourseNode->setResult($result);
                     }
