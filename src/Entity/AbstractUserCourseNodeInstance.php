@@ -26,16 +26,27 @@ abstract class AbstractUserCourseNodeInstance
     private $id;
 
     /**
-     * @ORM\ManyToOne(targetEntity="App\Entity\User")
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", cascade={"remove"})
      * @ORM\JoinColumn(nullable=false)
      */
     private $user;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\CourseNodeInstance", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="App\Entity\AbstractCourseNode", cascade={"remove"})
      * @ORM\JoinColumn(nullable=false)
      */
-    private $courseNodeInstance;
+    private $node;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\CourseInstance", cascade={"remove"})
+     * @ORM\JoinColumn(nullable=false)
+     */
+    public $instance;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $date;
 
     public function getId(): ?int
     {
@@ -54,14 +65,36 @@ abstract class AbstractUserCourseNodeInstance
         return $this;
     }
 
-    public function getCourseNodeInstance(): ?CourseNodeInstance
+    public function getNode(): AbstractCourseNode
     {
-        return $this->courseNodeInstance;
+        return $this->node;
     }
 
-    public function setCourseNodeInstance(CourseNodeInstance $courseNodeInstance): self
+    public function setNode(AbstractCourseNode $node): self
     {
-        $this->courseNodeInstance = $courseNodeInstance;
+        $this->node = $node;
+
+        return $this;
+    }
+
+    public function getInstance(): CourseInstance
+    {
+        return $this->instance;
+    }
+
+    public function setInstance(CourseInstance $instance): void
+    {
+        $this->instance = $instance;
+    }
+
+    public function getDate(): ?\DateTimeInterface
+    {
+        return $this->date;
+    }
+
+    public function setDate(\DateTimeInterface $date): self
+    {
+        $this->date = $date;
 
         return $this;
     }

@@ -30,8 +30,9 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
         $user->setRoles([User::ROLE_ADMIN]);
         $user->setActive(true);
         $user->setVerified(true);
-        $user->setPassword(self::PASSWORD);
-        $user->setPassword($this->encoder->encodePassword($user, $user->getPassword()));
+
+        $passwordHash = $this->encoder->encodePassword($user, self::PASSWORD);
+        $user->setPassword($passwordHash);
 
         $manager->persist($user);
 
@@ -43,8 +44,7 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
             $user->setRoles([User::ROLE_USER]);
             $user->setActive((bool)random_int(0,1));
             $user->setVerified((bool)random_int(0,1));
-            $user->setPassword(self::PASSWORD);
-            $user->setPassword($this->encoder->encodePassword($user, $user->getPassword()));
+            $user->setPassword($passwordHash);
             $user->setOrganization($this->getReference(OrganizationFixtures::ORGANIZATION));
 
             $manager->persist($user);

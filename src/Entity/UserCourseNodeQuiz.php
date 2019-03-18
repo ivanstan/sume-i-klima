@@ -17,37 +17,19 @@ class UserCourseNodeQuiz extends AbstractUserCourseNodeInstance
     private $id;
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\QuizResult", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="QuizQuestionResult", cascade={"persist", "remove"})
      */
     private $result;
 
-    /**
-     * @ORM\Column(type="datetime")
-     */
-    private $date;
-
-    public function getResult(): ?QuizResult
+    public function getResult(): ?QuizQuestionResult
     {
         return $this->result;
     }
 
-    public function setResult(?QuizResult $result): self
+    public function setResult(?QuizQuestionResult $result): self
     {
         $this->result = $result;
 
         return $this;
     }
-
-    public function getDate(): ?\DateTimeInterface
-    {
-        return $this->date;
-    }
-
-    public function setDate(\DateTimeInterface $date): self
-    {
-        $this->date = $date;
-
-        return $this;
-    }
-
 }
