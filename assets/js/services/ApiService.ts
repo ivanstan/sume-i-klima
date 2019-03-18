@@ -1,9 +1,9 @@
-import NProgress from 'react-nprogress';
+import * as NProgress from 'react-nprogress';
 
 export class ApiService {
 
     call(url) {
-        // NProgress.start();
+        NProgress.start();
         const globals: any = window['globals'];
 
         return new Promise((resolve, reject) => {
@@ -18,15 +18,15 @@ export class ApiService {
                         }
                     }
 
-                    // NProgress.done();
+                    NProgress.done();
                     this.error(Error(`HTTP response ${response.status} `), resolve);
                 })
                 .then(data => {
-                    // NProgress.done();
+                    NProgress.done();
                     resolve(data)
                 })
                 .catch(error => {
-                    // NProgress.done();
+                    NProgress.done();
                     reject(error)
                 });
         });
