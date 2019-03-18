@@ -14,6 +14,8 @@ class CourseController extends AbstractController
      */
     public function index(CourseInstance $course): Response
     {
-        return $this->render('pages/course/view.html.twig');
+        return $this->render('pages/course/view.html.twig', [
+            'course' => $course
+        ]);
     }
 }

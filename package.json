@@ -12,7 +12,8 @@
     "sass-loader": "^7.1.0",
     "ts-loader": "^5.3.3",
     "typescript": "^3.3.3333",
-    "webpack-notifier": "^1.6.0"
+    "webpack-notifier": "^1.6.0",
+    "react-nprogress": "^0.1.6"
   },
   "license": "UNLICENSED",
   "private": true,
