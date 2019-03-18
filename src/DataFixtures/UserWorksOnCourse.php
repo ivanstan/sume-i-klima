@@ -44,7 +44,7 @@ class UserWorksOnCourse extends Fixture implements DependentFixtureInterface
 
                         $answers = $question->getAnswers()->toArray();
 
-                        /** @var QuizQuestionAnswer $userAnswer */
+                        /** @var QuizQuestionAnswer $quizQuestionAnswer */
                         $quizQuestionAnswer = $answers[array_rand($answers)];
                         $result->setAnswer($quizQuestionAnswer->getAnswer());
 

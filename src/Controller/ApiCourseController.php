@@ -23,7 +23,8 @@ class ApiCourseController extends AbstractController
 
         $nodes = $this->getDoctrine()->getRepository(AbstractCourseNode::class)->getNodes($instance->getCourse());
 
-        $course = $serializer->normalize($instance, 'json', ['groups' => ['api_course_instance']]);
+        /** @var array $course */
+        $course = $serializer->normalize($instance, 'json', ['groups' => ['api_course_instance']]) ?? [];
 
         if (isset($course['course'], $course['course']['nodes'])) {
             $course['course']['nodes'] = $serializer->normalize($nodes, 'json', ['groups' => ['api_course_instance'], 'skip_null_values' => true]);
