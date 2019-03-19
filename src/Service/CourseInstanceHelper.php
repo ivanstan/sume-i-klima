@@ -8,14 +8,13 @@ use App\Entity\CourseInstance;
 use App\Entity\CourseNodeAssignment;
 use App\Entity\CourseNodeInstance;
 use App\Entity\CourseNodeQuiz;
-use App\Entity\File;
 use App\Entity\User;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
 
 class CourseInstanceHelper
 {
-    private static $options = ['groups' => ['api_course_instance'], 'skip_null_values' => true];
+    public static $options = ['groups' => ['api_course_instance'], 'skip_null_values' => true];
 
     /** @var CourseInstance */
     private $instance;

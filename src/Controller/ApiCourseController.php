@@ -2,13 +2,12 @@
 
 namespace App\Controller;
 
-use App\Entity\AbstractUserCourseNodeInstance;
 use App\Entity\CourseInstance;
 use App\Service\CourseInstanceHelper;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\Serializer\Normalizer\NormalizerInterface;
+use Symfony\Component\Serializer\SerializerInterface;
 
 /**
  * @Route("/api")
@@ -18,17 +17,21 @@ class ApiCourseController extends AbstractController
     /**
      * @Route("/course/{instance}", name="api_course_instance")
      */
-    public function course(CourseInstance $instance, CourseInstanceHelper $helper, NormalizerInterface $normalizer): Response
+    public function course(
+        CourseInstance $instance,
+        CourseInstanceHelper $helper,
+        SerializerInterface $normalizer
+    ): Response
     {
         $instance->getUsers(); // check if current user belongs to course instance
 
-        $options = ['groups' => ['api_course_instance'], 'skip_null_values' => true];
-
-        $nodes = $normalizer->normalize([
+        $data = [
             'instance' => $helper->setInstance($instance)->getCourse(),
             'progress' => $helper->setInstance($instance)->getUserProgress($this->getUser())
-        ], 'json', $options);
-        $response = new Response(json_encode($nodes));
+        ];
+
+        $nodes = $normalizer->serialize($data, 'json', CourseInstanceHelper::$options);
+        $response = new Response($nodes);
         $response->headers->set('Content-Type', 'application/json');
 
         return $response;
