@@ -64,7 +64,6 @@ class CourseInstanceHelper
         return $this;
     }
 
-
     public function getUserProgress(User $user): array
     {
         $nodes = $this
@@ -106,16 +105,16 @@ class CourseInstanceHelper
      */
     private function iterate(&$nodes): void
     {
-        foreach ($nodes as &$node) {
+        foreach ($nodes as $key => &$node) {
             $nodeId = (int)$node['id'];
 
-            if ($node['type'] === 'quiz') {
+            if ($node['type'] === CourseNodeQuiz::TYPE) {
                 $quiz = $this->quizzes[$node['id']];
 
                 $node['questions'] = $quiz->getQuestions();
             }
 
-            if ($node['type'] === 'assignment') {
+            if ($node['type'] === CourseNodeAssignment::TYPE) {
                 $assignment = $this->files[$node['id']];
 
                 $node['file'] = $assignment->getFile();
@@ -130,6 +129,8 @@ class CourseInstanceHelper
             if (!empty($node['children'])) {
                 $this->iterate($node['children']);
             }
+
+//            unset($nodes[$key]); to remove node
         }
     }
 }
