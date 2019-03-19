@@ -8,7 +8,7 @@ use Symfony\Component\Serializer\Annotation\Groups;
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserCourseNodeInstanceRepository")
  * @ORM\Table(name="user_course_node_instance")
- * @ORM\InheritanceType("JOINED")
+ * @ORM\InheritanceType("SINGLE_TABLE")
  * @ORM\DiscriminatorColumn(name="type", type="string")
  * @ORM\DiscriminatorMap({
  *     CourseNodeLesson::TYPE = "App\Entity\UserCourseNodeLesson",

@@ -6,7 +6,6 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity()
- * @ORM\Table(name="course_node_envelope")
  */
 class CourseNodeEnvelope extends AbstractCourseNode
 {

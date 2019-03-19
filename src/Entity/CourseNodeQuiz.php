@@ -9,7 +9,6 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity()
- * @ORM\Table(name="course_node_quiz")
  */
 class CourseNodeQuiz extends AbstractCourseNode
 {

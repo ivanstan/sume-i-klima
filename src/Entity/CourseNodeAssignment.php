@@ -7,7 +7,6 @@ use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
  * @ORM\Entity()
- * @ORM\Table(name="course_node_assigment")
  */
 class CourseNodeAssignment extends AbstractCourseNode
 {
@@ -28,7 +27,7 @@ class CourseNodeAssignment extends AbstractCourseNode
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\File")
-     * @ORM\JoinColumn(name="file_id", nullable=false)
+     * @ORM\JoinColumn(name="file_id")
      * @Groups({"api_course_instance"})
      */
     private $file;

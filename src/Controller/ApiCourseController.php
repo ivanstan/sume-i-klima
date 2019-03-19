@@ -36,15 +36,15 @@ class ApiCourseController extends AbstractController
         $response = new Response(json_encode($course));
         $response->headers->set('Content-Type', 'application/json');
 
-        $userNodes = $this
-            ->getDoctrine()
-            ->getRepository(AbstractUserCourseNodeInstance::class)
-            ->getUserNodes($this->getUser(), $instance)
-        ;
-
-        $nodes = $normalizer->normalize($userNodes, 'json', $options);
-        $response = new Response(json_encode($nodes));
-        $response->headers->set('Content-Type', 'application/json');
+//        $userNodes = $this
+//            ->getDoctrine()
+//            ->getRepository(AbstractUserCourseNodeInstance::class)
+//            ->getUserNodes($this->getUser(), $instance)
+//        ;
+//
+//        $nodes = $normalizer->normalize($userNodes, 'json', $options);
+//        $response = new Response(json_encode($nodes));
+//        $response->headers->set('Content-Type', 'application/json');
 
         return $response;
     }
