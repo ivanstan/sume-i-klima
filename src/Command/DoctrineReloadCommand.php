@@ -13,8 +13,8 @@ class DoctrineReloadCommand extends Command
     protected static $defaultName = 'doctrine:reload';
 
     private static $choices = [
-        'No',
-        'Yes',
+        'y' => 'Yes',
+        'n' => 'No',
     ];
     private $env;
 
@@ -42,7 +42,7 @@ class DoctrineReloadCommand extends Command
             return;
         }
 
-        if ($helper->ask($input, $output, $question) === self::$choices[1]) {
+        if ($helper->ask($input, $output, $question) === 'y') {
             $application = $this->getApplication();
             $application->setAutoExit(false);
 

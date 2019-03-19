@@ -9,6 +9,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class UserCourseNodeQuiz extends AbstractUserCourseNodeInstance
 {
+    protected const TYPE = CourseNodeQuiz::TYPE;
+
     /**
      * @ORM\Id()
      * @ORM\OneToOne(targetEntity="AbstractUserCourseNodeInstance", cascade={"persist", "remove"})

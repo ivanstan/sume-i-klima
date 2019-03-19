@@ -12,6 +12,7 @@ use App\Entity\User;
 use App\Entity\UserCourseNodeAssignment;
 use App\Entity\UserCourseNodeLesson;
 use App\Entity\UserCourseNodeQuiz;
+use App\Service\DateTimeService;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Common\Persistence\ObjectManager;

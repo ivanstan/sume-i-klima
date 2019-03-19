@@ -3,9 +3,10 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Serializer\Annotation\Groups;
 
 /**
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="App\Repository\UserCourseNodeInstanceRepository")
  * @ORM\Table(name="user_course_node_instance")
  * @ORM\InheritanceType("JOINED")
  * @ORM\DiscriminatorColumn(name="type", type="string")
@@ -18,6 +19,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 abstract class AbstractUserCourseNodeInstance
 {
+    protected const TYPE = 'node';
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -97,5 +100,13 @@ abstract class AbstractUserCourseNodeInstance
         $this->date = $date;
 
         return $this;
+    }
+
+    /**
+     * @Groups({"api_course_instance"})
+     */
+    public function getType(): string
+    {
+        return $this::TYPE;
     }
 }
