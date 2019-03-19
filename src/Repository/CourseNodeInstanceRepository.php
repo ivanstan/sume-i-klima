@@ -14,16 +14,23 @@ class CourseNodeInstanceRepository extends ServiceEntityRepository
         parent::__construct($registry, CourseNodeInstance::class);
     }
 
-    public function getNodes(Course $course)
+    public function getNodes(Course $course): array
     {
         $builder = $this->createQueryBuilder('node_instance');
 
-        $builder->select('node_instance');
-//            ->join('node_instance.instance', 'course_instance')
-//            ->join('node_instance.node', 'course_node')
-//            ->join('course_instance.course', 'course');
-//            ->where('course.id = :course')->setParameter('course', $course);
+        $builder->select('node_instance', 'course_node')
+            ->leftJoin('node_instance.instance', 'course_instance')
+            ->leftJoin('node_instance.node', 'course_node')
+            ->leftJoin('course_instance.course', 'course')
+            ->where('course = :course')->setParameter('course', $course);
 
-        return $builder->getQuery()->getResult();
+        $result = [];
+
+        /** @var CourseNodeInstance $node */
+        foreach ($builder->getQuery()->getResult() as $node) {
+            $result[$node->getNode()->getId()] = $node;
+        }
+
+        return $result;
     }
 }

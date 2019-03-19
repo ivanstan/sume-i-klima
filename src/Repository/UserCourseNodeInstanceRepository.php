@@ -15,16 +15,23 @@ class UserCourseNodeInstanceRepository extends ServiceEntityRepository
         parent::__construct($registry, AbstractUserCourseNodeInstance::class);
     }
 
-    public function getUserNodes(User $user, CourseInstance $instance)
+    public function getUserNodes(User $user, CourseInstance $instance): array
     {
         $builder = $this->createQueryBuilder('user_node');
 
-        $builder->select('node.id', 'user_node.date', 'user_node as data')
+        $builder->select('user_node', 'node')
             ->leftJoin('user_node.node', 'node')
             ->where('user_node.instance = :course')->setParameter('course', $instance)
             ->andWhere('user_node.user = :user')->setParameter('user', $user)
         ;
 
-        return $builder->getQuery()->getResult();
+        $result = [];
+
+        /** @var AbstractUserCourseNodeInstance $userNode */
+        foreach ($builder->getQuery()->getResult() as $userNode) {
+            $result[$userNode->getNode()->getId()] = $userNode;
+        }
+
+        return $result;
     }
 }

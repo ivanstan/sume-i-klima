@@ -4,7 +4,9 @@ namespace App\Repository;
 
 use App\Entity\AbstractCourseNode;
 use App\Entity\Course;
+use App\Entity\QuizQuestion;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\ORM\Query\Expr\Join;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 class CourseNodeRepository extends ServiceEntityRepository
@@ -18,9 +20,8 @@ class CourseNodeRepository extends ServiceEntityRepository
     {
         $builder = $this->createQueryBuilder('node');
 
-        $builder->select('node', 'course')
-            ->innerJoin('node.course', 'course')
-            ->where('course.id = :course')->setParameter('course', $course)
+        $builder->select('node')
+            ->where('node.course = :course')->setParameter('course', $course)
             ->andWhere('node.parent IS NULL')
             ->andWhere('node INSTANCE OF App\Entity\CourseNodeEnvelope')
         ;

@@ -48,6 +48,7 @@ abstract class AbstractUserCourseNodeInstance
 
     /**
      * @ORM\Column(type="datetime")
+     * @Groups({"api_course_instance"})
      */
     private $date;
 
