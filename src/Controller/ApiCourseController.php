@@ -25,8 +25,6 @@ class ApiCourseController extends AbstractController
         SerializerInterface $normalizer
     ): Response
     {
-        $instance->getUsers(); // check if current user belongs to course instance
-
         $data = [
             'instance' => $helper->setInstance($instance)->getCourse(),
             'progress' => $helper->setInstance($instance)->getUserProgress($this->getUser())
