@@ -57,6 +57,3 @@ security:
     - { path: "^/recovery", role: IS_AUTHENTICATED_ANONYMOUSLY }
     - { path: "^/register", role: IS_AUTHENTICATED_ANONYMOUSLY }
     - { path: "^/verify", role: IS_AUTHENTICATED_ANONYMOUSLY }
-
-
-

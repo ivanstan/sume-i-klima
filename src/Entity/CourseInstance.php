@@ -28,7 +28,8 @@ class CourseInstance
     private $course;
 
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\User", inversedBy="courses")
+     * @var User[]|Collection
+     * @ORM\ManyToMany(targetEntity="App\Entity\User", inversedBy="courses", indexBy="id")
      */
     private $users;
 

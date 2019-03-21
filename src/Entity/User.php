@@ -141,6 +141,10 @@ class User implements UserInterface
         $this->roles = $roles;
     }
 
+    public function hasRole(string $role) {
+        return in_array($role, $this->getRoles(), true);
+    }
+
     public function getLastLogin(): ?\DateTime
     {
         return $this->lastLogin;
