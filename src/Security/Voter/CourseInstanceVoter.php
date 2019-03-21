@@ -2,14 +2,12 @@
 
 namespace App\Security\Voter;
 
-use App\Entity\Course;
 use App\Entity\CourseInstance;
 use App\Entity\User;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Authorization\Voter\Voter;
-use Symfony\Component\Security\Core\Authorization\Voter\VoterInterface;
 
-class CourseInstanceVoter extends Voter implements VoterInterface
+class CourseInstanceVoter extends Voter
 {
     private const VIEW = 'view';
 
