@@ -24,7 +24,6 @@ class DoctrineReloadCommand extends Command
         $this->env = $env;
     }
 
-
     protected function configure(): void
     {
         $this->setDescription('Purge database, execute migrations and load fixtures');
@@ -34,11 +33,11 @@ class DoctrineReloadCommand extends Command
     {
         $io = new SymfonyStyle($input, $output);
         $helper = $this->getHelper('question');
-
         $question = new ChoiceQuestion('All data will be lost. Do you wish to continue?', self::$choices, false);
 
         if ('dev' !== $this->env) {
-            $io->warning('This is intended only for dev environment.');
+            $io->warning('This is intended only for use in dev environment.');
+
             return;
         }
 

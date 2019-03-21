@@ -49,7 +49,6 @@ class UserFixtures extends Fixture implements DependentFixtureInterface
 
             $manager->persist($user);
         }
-
         $manager->flush();
     }
 

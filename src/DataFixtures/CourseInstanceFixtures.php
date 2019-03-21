@@ -23,8 +23,8 @@ class CourseInstanceFixtures extends Fixture implements DependentFixtureInterfac
         foreach ($courses as $course) {
             $instance = new CourseInstance();
             $instance->setCourse($course);
-            $instance->setDate(new \DateTime('now'));
-            $instance->setTimezone(new \DateTimeZone(DateTimeService::UTC_TIMEZONE));
+            $instance->setDate(DateTimeService::getCurrentUTC());
+            $instance->setTimezone(new \DateTimeZone(DateTimeService::UTC_TIMEZONE_NAME));
             $instance->addUser($admin);
 
             $manager->persist($instance);

@@ -16,12 +16,13 @@ class FileManager
 
     public function getAbsolutePath(File $file): string
     {
-        return $this->rootDir . '/' . $file->getDestination();
+        return $this->rootDir.'/'.$file->getDestination();
     }
 
     public function save(string $destination, string $data)
     {
         $folder = pathinfo($destination, PATHINFO_DIRNAME);
+
         if (!is_dir($folder) && !mkdir($folder, 0777, true) && !is_dir($folder)) {
             throw new \RuntimeException(sprintf('Directory "%s" was not created', $folder));
         }

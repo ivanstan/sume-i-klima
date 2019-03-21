@@ -4,9 +4,7 @@ namespace App\Repository;
 
 use App\Entity\AbstractCourseNode;
 use App\Entity\Course;
-use App\Entity\QuizQuestion;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
-use Doctrine\ORM\Query\Expr\Join;
 use Symfony\Bridge\Doctrine\RegistryInterface;
 
 class CourseNodeRepository extends ServiceEntityRepository

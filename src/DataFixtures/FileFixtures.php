@@ -1,7 +1,6 @@
 <?php
 
 namespace App\DataFixtures;
-
 use App\Entity\File;
 use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
@@ -24,7 +23,6 @@ class FileFixtures extends Fixture implements DependentFixtureInterface
 
             $manager->persist($file);
         }
-
         $manager->flush();
     }
 

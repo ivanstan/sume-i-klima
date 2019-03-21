@@ -98,6 +98,7 @@ class User implements UserInterface
     protected $organization;
 
     /**
+     * @var CourseInstance[]|Collection
      * @ORM\ManyToMany(targetEntity="App\Entity\CourseInstance", mappedBy="users")
      */
     private $courses;
@@ -163,8 +164,8 @@ class User implements UserInterface
      */
     public function setCreated(): void
     {
-        $this->created = new \DateTime('now', new \DateTimeZone(DateTimeService::UTC_TIMEZONE));
-        $this->updated = new \DateTime('now', new \DateTimeZone(DateTimeService::UTC_TIMEZONE));
+        $this->created = DateTimeService::getCurrentUTC();
+        $this->updated = DateTimeService::getCurrentUTC();
     }
 
     public function getUpdated(): ?\DateTime
@@ -177,7 +178,7 @@ class User implements UserInterface
      */
     public function setUpdated(): void
     {
-        $this->updated = new \DateTime('now', new \DateTimeZone(DateTimeService::UTC_TIMEZONE));
+        $this->updated = DateTimeService::getCurrentUTC();
     }
 
     public function getIp(): ?string
@@ -238,7 +239,7 @@ class User implements UserInterface
     {
         $hash = md5(strtolower(trim($this->getEmail())));
 
-        $fallback = 'https://ui-avatars.com/api/'.$this->getEmail();
+        $fallback = 'https://ui-avatars.com/api/'.$this->getEmail().'?background=007bff&color=fff';
 
         return 'https://www.gravatar.com/avatar/'.$hash.'?d='.$fallback;
     }
