@@ -2,7 +2,7 @@ import * as NProgress from 'react-nprogress';
 
 export class ApiService {
 
-    call(url) {
+    public call(url) {
         NProgress.start();
         const globals: any = window['globals'];
 
