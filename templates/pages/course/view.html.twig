@@ -1,5 +1,7 @@
 {% extends 'pages/container.html.twig' %}
 
+{% block title %}{{ course.course.name }} | {{ parent() }}{% endblock %}
+
 {% block content %}
     <div id="course" data-id="{{ course.id }}"></div>
 {% endblock %}
